@@ -7,7 +7,7 @@ NAME      PROVIDER   BUCKET/PREFIX   PHASE       LAST VALIDATED                 
 default   aws        dkp-velero      Available   2024-12-23 21:29:49 +0545 +0545   ReadWrite     
 [root@bastion Practices]# 
 ```
----
+
 I am going to use velero to take backup of following namespace 
 ```
 [root@bastion Practices]# k get pods -n k8s-gtxg6
@@ -36,7 +36,6 @@ wordpress-mysql   1/1     1            1           5h24m
 worker            1/1     1            1           7h3m
 [root@bastion Practices]# 
 ```
----
 
 Time to take backup
 ```
@@ -55,7 +54,7 @@ Annotations:  velero.io/resource-timeout=10m0s
 
 Phase:  Completed
 ```
----
+
 Using CRDs for listing backups 
 ```
 [root@bastion Practices]# k get backups -n kommander
@@ -106,7 +105,6 @@ Status:
 Events:               <none>
 [root@bastion Practices]# 
 ```
----
 Troubleshooting Velero Backups Common Issues 
 velero logs can be collected using below command 
 ```
@@ -132,3 +130,5 @@ time="2024-12-23T15:51:49Z" level=info msg="plugin process exited" backup-storag
 time="2024-12-23T15:52:07Z" level=info msg="plugin process exited" backupLocation=kommander/default cmd=/plugins/velero-plugin-for-aws controller=backup-sync id=8811 logSource="pkg/plugin/clientmgmt/process/logrus_adapter.go:80" plugin=/plugins/velero-plugin-for-aws
 
 ```
+
+---
