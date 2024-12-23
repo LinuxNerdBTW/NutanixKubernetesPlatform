@@ -71,3 +71,5 @@ EOF
 
 Now you should be abled to login with admin user.....
 
+!["Alt text"](https://github.com/LinuxNerdBTW/NutanixKubernetesPlatform/blob/main/Practices/Creating-Local-Users-After-the-Kommander-Installation/Screenshot%202024-12-23%20220149.png?raw=true)
+
