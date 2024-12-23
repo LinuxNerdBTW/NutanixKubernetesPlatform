@@ -50,7 +50,7 @@ status:
 
 ```
 
-Adding RBAC Roles to Local Users
+3. Adding RBAC Roles to Local Users
 
 ```
 cat <<EOF | kubectl apply -f -
