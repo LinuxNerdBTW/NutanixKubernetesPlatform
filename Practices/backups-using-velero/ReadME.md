@@ -1,15 +1,15 @@
 How to take backups using velero ? 
 ---
 List available BSL - Backup Storage Location
-
+```
 [root@bastion Practices]# velero backup-location get -n kommander
 NAME      PROVIDER   BUCKET/PREFIX   PHASE       LAST VALIDATED                    ACCESS MODE   DEFAULT
 default   aws        dkp-velero      Available   2024-12-23 21:29:49 +0545 +0545   ReadWrite     
 [root@bastion Practices]# 
-
+```
 ---
 I am going to use velero to take backup of following namespace 
-
+```
 [root@bastion Practices]# k get pods -n k8s-gtxg6
 NAME                               READY   STATUS    RESTARTS   AGE
 db-6f6779dd68-grhdn                1/1     Running   0          6h39m
@@ -35,14 +35,15 @@ wordpress         1/1     1            1           5h24m
 wordpress-mysql   1/1     1            1           5h24m
 worker            1/1     1            1           7h3m
 [root@bastion Practices]# 
+```
 ---
 
 Time to take backup
-
+```
 [root@bastion Practices]# velero backup create myapp-backup --include-namespaces k8s-gtxg6 -n kommander --snapshot-volumes=false
-
+```
 Use below command to check backup status: 
-
+```
 [root@bastion Practices]# velero backup describe myapp-backup -n kommander
 Name:         myapp-backup
 Namespace:    kommander
@@ -53,9 +54,10 @@ Annotations:  velero.io/resource-timeout=10m0s
               velero.io/source-cluster-k8s-minor-version=30
 
 Phase:  Completed
+```
 ---
 Using CRDs for listing backups 
-
+```
 [root@bastion Practices]# k get backups -n kommander
 NAME           AGE
 myapp-backup   11m
@@ -103,26 +105,25 @@ Status:
   Version:            1
 Events:               <none>
 [root@bastion Practices]# 
-
+```
 ---
 Troubleshooting Velero Backups Common Issues 
 velero logs can be collected using below command 
-
+```
 [root@bastion Practices]# velero backup logs myapp-backup -n kommander
 An error occurred: Get "https://192.168.187.202:8085/dkp-velero/backups/myapp-backup/myapp-backup-logs.gz?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=1L8L36CMRT0VGWMFH1CJ%2F20241223%2Fdkp-object-store%2Fs3%2Faws4_request&X-Amz-Date=20241223T155025Z&X-Amz-Expires=600&X-Amz-SignedHeaders=host&x-id=GetObject&X-Amz-Signature=bfb0d3c915724b5b1f117de67e0815f60ad17a55cc1dd82223438db46749cb62": tls: failed to verify certificate: x509: certificate signed by unknown authority
 [root@bastion Practices]# 
-
+```
 
 To troubleshoot velero backups related issues ? 
 
 list velero pods: 
-
+```
 [root@bastion Practices]# k get pods -n kommander | grep velero
 object-bucket-claims-check-dkp-velero-4fdpw                       0/1     Completed   0               6h48m
 velero-backup-storage-location-updater-5d849446c9-46zcj           1/1     Running     0               6h49m
 velero-f487f9885-9w7tm                                            1/1     Running     0               6h50m
 velero-pre-install-shlbw                                          0/1     Completed   0               7h37m
-
 
 [root@bastion Practices]# k logs pods/velero-f487f9885-9w7tm -n kommander
 time="2024-12-23T15:51:49Z" level=info msg="BackupStorageLocations is valid, marking as available" backup-storage-location=kommander/default controller=backup-storage-location logSource="pkg/controller/backup_storage_location_controller.go:127"
@@ -130,3 +131,4 @@ time="2024-12-23T15:51:49Z" level=warning msg="There is no existing BackupStorag
 time="2024-12-23T15:51:49Z" level=info msg="plugin process exited" backup-storage-location=kommander/default cmd=/plugins/velero-plugin-for-aws controller=backup-storage-location id=8801 logSource="pkg/plugin/clientmgmt/process/logrus_adapter.go:80" plugin=/plugins/velero-plugin-for-aws
 time="2024-12-23T15:52:07Z" level=info msg="plugin process exited" backupLocation=kommander/default cmd=/plugins/velero-plugin-for-aws controller=backup-sync id=8811 logSource="pkg/plugin/clientmgmt/process/logrus_adapter.go:80" plugin=/plugins/velero-plugin-for-aws
 
+```
