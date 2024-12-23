@@ -3,7 +3,6 @@ Creating Local User and Assign cluster-admin role
 
 1. Create a configMap resource with the credentials of the new local user
 
-Create password hash for admin user
 ```
 [root@bastion ]# htpasswd -bnBC 10 "" P@ssw0rd@123 | tr -d ':\n' && echo
 $2y$10$L.7RxrXu5mDsB5FzX7wZo.6gwZ4j8RRFTOOib1U4S0pakGcGTtPzm

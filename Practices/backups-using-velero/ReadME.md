@@ -1,6 +1,6 @@
 How to take backups using velero ? 
 ---
-List available BSL - Backup Storage Location
+1. List available BSL - Backup Storage Location
 ```
 [root@bastion Practices]# velero backup-location get -n kommander
 NAME      PROVIDER   BUCKET/PREFIX   PHASE       LAST VALIDATED                    ACCESS MODE   DEFAULT
@@ -37,7 +37,7 @@ worker            1/1     1            1           7h3m
 [root@bastion Practices]# 
 ```
 
-Time to take backup
+2. Time to take backup
 ```
 [root@bastion Practices]# velero backup create myapp-backup --include-namespaces k8s-gtxg6 -n kommander --snapshot-volumes=false
 ```
@@ -55,7 +55,7 @@ Annotations:  velero.io/resource-timeout=10m0s
 Phase:  Completed
 ```
 
-Using CRDs for listing backups 
+3. Using CRDs for listing backups 
 ```
 [root@bastion Practices]# k get backups -n kommander
 NAME           AGE
@@ -105,7 +105,7 @@ Status:
 Events:               <none>
 [root@bastion Practices]# 
 ```
-Troubleshooting Velero Backups Common Issues 
+4. Troubleshooting Velero Backups Common Issues 
 velero logs can be collected using below command 
 ```
 [root@bastion Practices]# velero backup logs myapp-backup -n kommander
