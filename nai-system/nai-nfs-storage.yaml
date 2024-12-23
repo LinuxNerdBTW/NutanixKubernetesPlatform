@@ -1,0 +1,11 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: nai-nfs-storage
+parameters:
+  nfsPath: fsfornai-nfs-linux
+  nfsServer: fsfornai.workstation-server.local:/fsfornai-nfs-linux
+  storageType: NutanixFiles
+provisioner: csi.nutanix.com
+reclaimPolicy: Delete
+volumeBindingMode: Immediate

@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: dex-overrides
+  namespace: kommander
+data:
+  values.yaml: |
+    config: 
+      staticPasswords:
+      - email: admin
+        hash: $2y$10$qM32wERVgD7z7uiA.KFl/edCwGeB9y3RJGdrEHEkVdg8jJDl8T/Vuc
+
+

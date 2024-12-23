@@ -1,0 +1,68 @@
+apiVersion: workspaces.kommander.mesosphere.io/v1alpha1
+kind: Project
+metadata:
+  name: My-Project-Name
+  namespace: my-project-k8s-namespace-name
+spec:
+  workspaceRef:
+    name: myworkspacename
+  namespaceName: myworkspacename-di3tx
+  placement:
+    clusterSelector:
+      matchLabels:
+        cluster: nkp
+
+
+
+helm install cosi-driver -n cosi-driver-nutanix . --set secret.enabled=true --set secret.endpoint="https://192.168.180.206:80" --set secret.access_key="1bb9BfqFTpCAM4NGOI3hgAV8I1j24fXw" --set secret.secret_key="5VjnD0f9CN5GfWktqhtINIGYOf1WOJk0" --set secret.pc_secret="192.168.177.10:9440:rojina:P@ssw0rd@123"
+
+
+
+
+kubectl --kubeconfig ${CLUSTER_NAME}.conf apply -f - <<EOF
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: ${WORKSPACE_NAMESPACE}
+  name: velero-overrides
+data:
+   values.yaml: |
+    credentials:
+      extraSecretRef: ""
+    configuration:
+      backupStorageLocation:
+      - name: ${BSL_NAME}
+        bucket: ${BUCKET}
+            provider: "aws" 
+            default: true
+        config:
+          region: us-east-1
+          s3ForcePathStyle: "true"
+          insecureSkipTLSVerify: "true"
+          s3Url: "https://${NUTANIX_OBJECTS_HOST}:${NUTANIX_OBJECTS_PORT}"
+          # profile should be set to the AWS profile name mentioned in the secret
+          profile: ${AWS_PROFILE}
+        credential:
+          key: aws
+          name: ${NUTANIX_OBJECTS_SECRET}
+EOF
+
+
+
+credentials:
+  extraSecretRef: ""
+configuration:
+  backupStorageLocation:
+  - name: ntnx-object-nkp
+    bucket: ntnx-object-nkp
+    provider: "aws" 
+    default: true
+    config:
+      region: us-east-1
+      s3ForcePathStyle: "true"
+      insecureSkipTLSVerify: "true"
+      s3Url: "https://192.168.180.206:443"
+      profile: ntnx-object-nkp
+    credential:
+      key: aws
+      name: velero-nutanix-credentials

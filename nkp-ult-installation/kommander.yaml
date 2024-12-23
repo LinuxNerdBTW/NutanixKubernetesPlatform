@@ -1,0 +1,63 @@
+apiVersion: config.kommander.mesosphere.io/v1alpha1
+kind: Installation
+apps:
+  ai-navigator-app:
+    enabled: true
+  dex:
+    enabled: true
+  dex-k8s-authenticator:
+    enabled: true
+  gatekeeper:
+    enabled: true
+  git-operator:
+    enabled: true
+  grafana-logging:
+    enabled: true
+  grafana-loki:
+    enabled: true
+  kommander:
+    enabled: true
+  kommander-ui:
+    enabled: true
+  kube-prometheus-stack:
+    enabled: true
+  kubefed:
+    enabled: true
+  kubernetes-dashboard:
+    enabled: false
+  kubetunnel:
+    enabled: true
+  logging-operator:
+    enabled: true
+  nkp-insights-management:
+    enabled: true
+  prometheus-adapter:
+    enabled: true
+  reloader:
+    enabled: true
+  rook-ceph:
+    enabled: true
+  rook-ceph-cluster:
+    enabled: false
+  traefik:
+    enabled: true
+  traefik-forward-auth-mgmt:
+    enabled: true
+  velero:
+    enabled: true
+ageEncryptionSecretName: sops-age
+clusterHostname: ""
+
+...
+catalog:
+  repositories:
+    - name: dkp-catalog-applications
+      labels:
+        kommander.d2iq.io/project-default-catalog-repository: "true"
+        kommander.d2iq.io/workspace-default-catalog-repository: "true"
+        kommander.d2iq.io/gitapps-gitrepository-type: "nkp"
+      gitRepositorySpec:
+        url: https://github.com/mesosphere/dkp-catalog-applications 
+        ref:
+          tag: v2.12.0
+...
