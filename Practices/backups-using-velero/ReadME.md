@@ -1,4 +1,5 @@
-How to take backups using velero ? 
+
+## How to take backups using velero ? 
 ---
 1. List available BSL - Backup Storage Location
   ```
@@ -131,7 +132,7 @@ I am going to use velero to take backup of following namespace
 
   ```
 
-Creating Backup Schedule 
+## Creating Backup Schedule 
 
 1. Setting Environment Variables for Backup 
 
@@ -161,7 +162,7 @@ Creating Backup Schedule
 
   ```
 
-Replacing Default Backup Schedule with Custom Schedule 
+## Replacing Default Backup Schedule with Custom Schedule 
 
 1. List backup schedules 
   
@@ -182,7 +183,7 @@ Replacing Default Backup Schedule with Custom Schedule
   
   ```
 
-Restoring Namespace from backup
+## Restoring Namespace from backup
 
 1. To create a backup of the sockshop namespace, run the following command:
   
@@ -204,7 +205,7 @@ Restoring Namespace from backup
 
   ```
 
-Restoring from a Backup
+## Restoring from a Backup
 
 1. First, delete the sockshop namespace using the following command:
 
@@ -253,5 +254,15 @@ Restoring from a Backup
 
   ```
 
+## Generating Diagnostic Data about Backup and Restore Operations
+
+  ```
+  velero get schedules
+  velero get backups
+  velero get restores
+  velero get backup-locations
+  velero get snapshot-locations
+
+  ```
 
 ---
