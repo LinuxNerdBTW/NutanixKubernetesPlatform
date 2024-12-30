@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rustdesk-server
+spec:
+  replicas: 2 # Adjust the number of replicas as needed
+  selector:
+    matchLabels:
+      app: rustdesk-server
+  template:
+    metadata:
+      labels:
+        app: rustdesk-server
+    spec:
+      containers:
+      - name: rustdesk-server
+        image: rustdesk/rustdesk-server
+        ports:
+        - containerPort: 21115 # Expose the RustDesk server port
+        volumeMounts:
+        - name: data
+          mountPath: /root 
+      volumes:
+      - name: data
+        emptyDir: {}
