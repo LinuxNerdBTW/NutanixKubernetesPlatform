@@ -195,6 +195,8 @@ Restoring Namespace from backup
   ```
   velero -n $WORKSPACE_NAMESPACE --kubeconfig roaring-lion.conf backup get
 
+  ```
+
 3. Then, view the backup details using the following command:
 
   ```
